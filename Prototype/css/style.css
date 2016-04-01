@@ -149,13 +149,16 @@ img.ac_bgimage{
 	margin-bottom:15px;
 }
 span.ac_close{
-	float:right;
 	margin:10px;
 	width:11px;
 	height:12px;
 	cursor:pointer;
 	background:transparent url(../images/close.png) no-repeat top left;
 	opacity:0.4;
+	position: absolute;
+	display: block;
+	right: 0;
+	border:1px solid red;
 }
 span.ac_close:hover{
 	opacity:1.0;
@@ -186,4 +189,24 @@ span.ac_close:hover{
 }
 .ac_footer a.ac_left{
 	float:left;
+}
+
+.about-head{
+	width: 100%;
+	height: 180px;
+}
+
+.about-head > img{
+	width: 100%;
+	height: 100%;
+}
+
+.about-body{
+	width: 80%;
+	height: 70%;
+	margin:0 auto;
+}
+.about-body > img{
+	width: 100%;
+	height: 100%;
 }
