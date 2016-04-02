@@ -9,7 +9,9 @@ $(function() {
 	$mainNav		= $menu.find('ul:first'),
 	$menuItems		= $mainNav.children('li'),
 	totalItems		= $menuItems.length,
-	$ItemImages		= new Array();
+	$ItemImages		= new Array(),
+	$landing 		= $(".landing"),
+	$burgerNav		= $(".burger-nav");
 	
 	/* 
 	for this menu, we will preload all the images. 
@@ -37,25 +39,45 @@ $(function() {
 			 */
 			$ac_loading.show();//show loading status image
 			$.when(loadImages()).done(function(){
-				$.when(showBGImage()).done(function(){
-					//hide the loading status image
-					$ac_loading.hide();
-					$.when(slideOutMenu()).done(function(){
-							$.when(toggleMenuItems('up')).done(function(){
-							initEventsSubMenu();
-						});
-					});
+				toggleLanding();
+				$landing.promise().done(function(){
+					$ac_loading.fadeOut();
+					burgerClick();
 				});
 			});
 		},
+
+		burgerClick = function(){
+			$burgerNav.on("click", function(){
+				$.when(hideLanding()).done(function(){
+					$.when(showBGImage()).done(function(){
+						$.when(slideOutMenu()).done(function(){
+							$.when(toggleMenuItems('up')).done(function(){
+								initEventsSubMenu();
+							});
+						});
+					});
+				});
+				
+			});
+		},
+
+		hideLanding = function(){
+			$landing.addClass("slideRight");
+		},
+
+		toggleLanding = function(){
+				$landing.addClass("magictime puffIn");
+		},
+
 		showBGImage			= function() {
 			return $.Deferred(
 			function(dfd) {
-				//adjusts the dimensions of the image to fit the screen
-				adjustImageSize($ac_bgimage);
-				$ac_bgimage.fadeIn(1000, dfd.resolve);
-			}
-		).promise();
+					//adjusts the dimensions of the image to fit the screen
+					adjustImageSize($ac_bgimage);
+					$ac_bgimage.fadeIn(1000, dfd.resolve);
+				}
+			).promise();
 		},
 		slideOutMenu		= function() {
 			/* calculate new width for the menu */
