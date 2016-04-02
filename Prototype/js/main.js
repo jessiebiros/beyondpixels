@@ -22,6 +22,10 @@ $(function() {
 		$ItemImages.push($(this).children('a:first').attr('href'));
 	});
 	$ItemImages.push($ac_bgimage.attr('src'));
+
+	$menuItems.find('a').on('click', function(e){
+		e.preventDefault();
+	});
 		  
 	
 	var Menu 			= (function(){
@@ -67,7 +71,7 @@ $(function() {
 		},
 
 		toggleLanding = function(){
-				$landing.addClass("magictime puffIn");
+				$landing.fadeIn(600);
 		},
 
 		showBGImage			= function() {
@@ -137,6 +141,7 @@ $(function() {
 				
 				/* user clicks one item : appetizers | main course | desserts | wines | specials */
 				$el_title.bind('click.Menu', function(e) {
+					e.preventDefault();
 					if($(".ac_subitem")){
 						$('.ac_subitem').stop()
 						.animate({
